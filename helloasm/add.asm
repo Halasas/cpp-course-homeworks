@@ -21,7 +21,7 @@ _start:
 
 ; adds two long number
 ;    rdi -- address of summand #1 (long number)
-;    rsi -- address of summand #2 (long number)
+;    rsi -- address of summand #2 (long number)sa
 ;    rcx -- length of long numbers in qwords
 ; result:
 ;    sum is written to rdi
