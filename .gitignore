@@ -2,5 +2,5 @@
 # Данный GITIGNORE-файл был автоматически создан Microsoft(R) Visual Studio.
 ################################################################################
 
-/big_int_vs/.vs/big_int_vs/v15
+/big_int_vs/
 /big_int_vs/Debug
