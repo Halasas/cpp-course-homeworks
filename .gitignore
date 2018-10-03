@@ -3,4 +3,13 @@
 ################################################################################
 
 /big_int_vs/
-/big_int_vs/Debug
+/bigint/
+/big_integer/.vs/big_integer/v15
+/big_integer/Release
+/big_integer/targetver.h
+/big_integer/stdafx.h
+/big_integer/stdafx.cpp
+/big_integer/big_integer.vcxproj.user
+/big_integer/big_integer.vcxproj.filters
+/big_integer/big_integer.vcxproj
+/big_integer/big_integer.sln
