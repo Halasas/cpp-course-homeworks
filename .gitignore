@@ -13,3 +13,13 @@
 /big_integer/big_integer.vcxproj.filters
 /big_integer/big_integer.vcxproj
 /big_integer/big_integer.sln
+/huffman/Debug
+/huffman/.vs/huffman/v15
+/huffman/Release
+/huffman/targetver.h
+/huffman/stdafx.h
+/huffman/stdafx.cpp
+/huffman/huffman.vcxproj.user
+/huffman/huffman.vcxproj.filters
+/huffman/huffman.vcxproj
+/huffman/huffman.sln
