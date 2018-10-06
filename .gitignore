@@ -14,7 +14,7 @@
 /big_integer/big_integer.vcxproj
 /big_integer/big_integer.sln
 /huffman/Debug
-/huffman/.vs/huffman/v15
+/huffman/.vs
 /huffman/Release
 /huffman/targetver.h
 /huffman/stdafx.h
