@@ -26,7 +26,7 @@ first_loop:
 		jg not_0_9 
 		; ch >= '0' && ch <= '9'
 		sub ch, '0'
-		jmp eax_calculated
+		jmp ch_calculated
 
 		not_0_9:
 		cmp ch, 'A'
@@ -36,7 +36,7 @@ first_loop:
 		; ch >= 'A' && ch <= 'F'
 		sub ch, 'A'
 		add ch, 10
-		jmp eax_calculated
+		jmp ch_calculated
 
 		not_A_F:		
 		cmp ch, 'a'
@@ -46,12 +46,12 @@ first_loop:
 		; ch >= 'a' && ch <= 'f'
 		sub ch, 'a'
 		add ch, 10
-		jmp eax_calculated
+		jmp ch_calculated
 
 		not_a_f:
 		jmp first_loop_end		
-		eax_calculated:
-
+		ch_calculated:
+		; (64-bit)buffer *= 16
 		mov eax, [esp]
 		mov ebx, dword 16
 		mul ebx
@@ -61,7 +61,7 @@ first_loop:
 		mul ebx
 		add eax, ebp
 		mov [esp + 4], eax
-
+		; (64-bit)buffer += ch
 		add [esp], ch
 		mov ebx, 0
 		adc [esp + 4],  ebx
@@ -69,14 +69,15 @@ first_loop:
 		mov eax, [esp]
 
 
-		dec cl			;for(edx != ecx; ecx++)
+		dec cl			
 		cmp cl, 0
 		jne first_loop
 first_loop_end:
-		mov esi, [esp + 8 + 8 + 32]
+		mov esi, [esp + 8 + 8 + 32] ; reset esi to hex[0]
 		mov ch, [esi]
 		cmp ch, '-'
 		jne not_negative
+		;if(hex[0] == '-')
 		mov [edi], ch
 		inc edi
 		not dword[esp + 4]
@@ -85,6 +86,7 @@ not_negative:
 		mov esi, esp
 		xor ecx, ecx
 second_loop:
+		; (64-bit)buffer /= 10
 		mov ebx, 10
 		xor edx, edx
 
