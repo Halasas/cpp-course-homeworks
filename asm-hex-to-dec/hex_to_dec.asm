@@ -5,10 +5,12 @@ hex_to_dec:
 		mov edi, [esp + 4] ; out
 		mov esi, [esp + 8] ; hex
 		pushad
-		sub esp, 8; 
+		sub esp, 16; 
 		mov [esp], dword 0
 		mov [esp + 4], dword 0
-		mov cl, 16 ; counter = 16
+		mov [esp + 8], dword 0
+		mov [esp + 12], dword 0
+		mov cl, 32 ; counter = 32
 
 		mov ch, [esi] ; ch = hex[0]
 		cmp ch, '-' 
@@ -52,36 +54,62 @@ first_loop:
 		jmp first_loop_end		
 		ch_calculated:
 		; (64-bit)buffer *= 16
-		mov eax, [esp]
-		mov ebx, dword 16
-		mul ebx
-		mov [esp], eax
-		mov ebp, edx
+		mov eax, [esp + 12]
+		mov edx, [esp + 8]
+		shld eax, edx, 4
+		mov [esp + 12], eax
+		mov eax, [esp + 8]
+		mov edx, [esp + 4]
+		shld eax, edx, 4
+		mov [esp + 8], eax
 		mov eax, [esp + 4]
-		mul ebx
-		add eax, ebp
+		mov edx, [esp]
+		shld eax, edx, 4
 		mov [esp + 4], eax
+		shl edx, 4
+		mov [esp], edx
+
 		; (64-bit)buffer += ch
 		add [esp], ch
 		mov ebx, 0
 		adc [esp + 4],  ebx
-
-		mov eax, [esp]
-
+		adc [esp + 8],  ebx
+		adc [esp + 12],  ebx
 
 		dec cl			
 		cmp cl, 0
 		jne first_loop
 first_loop_end:
-		mov esi, [esp + 8 + 8 + 32] ; reset esi to hex[0]
+		mov esi, [esp + 8 + 16 + 32] ; reset esi to hex[0]
 		mov ch, [esi]
 		cmp ch, '-'
-		jne not_negative
+		jne minus_applied
 		;if(hex[0] == '-')
-		mov [edi], ch
-		inc edi
+		not dword[esp + 12]
+		not dword[esp + 8]
 		not dword[esp + 4]
 		not dword[esp]
+		mov ecx, 1
+		add [esp], ecx
+		mov ebx, 0
+		adc [esp + 4],   ebx
+		adc [esp + 8],   ebx
+		adc [esp + 12],  ebx
+minus_applied:
+		mov eax, 1
+		shl eax, 31
+		mov ebx, [esp + 12]
+		and eax, ebx
+		cmp eax, 0
+		je not_negative
+		;if(sign_bit != 0)
+		mov eax, 1
+		shl eax, 31
+		sub eax, 1
+		or [esp + 12], eax ; sign_bit = 0
+		mov ch, '-'
+		mov [edi], ch
+		inc edi
 not_negative:
 		mov esi, esp
 		xor ecx, ecx
@@ -89,6 +117,14 @@ second_loop:
 		; (64-bit)buffer /= 10
 		mov ebx, 10
 		xor edx, edx
+
+		mov eax, [esi + 12]
+		div ebx
+		mov [esi + 12], eax
+		
+		mov eax, [esi + 8]
+		div ebx
+		mov [esi + 8], eax
 
 		mov eax, [esi + 4]
 		div ebx
@@ -117,7 +153,11 @@ print_out:
 		cmp ecx, 0
 		jne print_out
 
-		add esp, 8
+		mov ch, 0x00
+		mov [edi], ch
+		inc edi
+
+		add esp, 16
 		popad
 		ret
 
