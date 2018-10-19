@@ -4,7 +4,7 @@
 void __attribute__((__cdecl__)) hex_to_dec(char* out, char* hex);
 
 char main() {
-	char* hex = "-7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF";
+	char* hex = "-80000000000000000000000000000001";
 	char* out = (char*)malloc(64 * sizeof(char));
 	printf("hex: %s\n", hex);
 	hex_to_dec(out, hex);

@@ -96,17 +96,19 @@ first_loop_end:
 		adc [esp + 8],   ebx
 		adc [esp + 12],  ebx
 minus_applied:
-		mov eax, 1
-		shl eax, 31
-		mov ebx, [esp + 12]
-		and eax, ebx
-		cmp eax, 0
+		mov ebx, 10
+		mov eax, [esp + 12]
+		shr eax, 31
+
+		cmp al, 0
 		je not_negative
 		;if(sign_bit != 0)
-		mov eax, 1
-		shl eax, 31
-		sub eax, 1
-		or [esp + 12], eax ; sign_bit = 0
+		not dword[esp + 12]
+		not dword[esp + 8]
+		not dword[esp + 4]
+		not dword[esp]
+		mov ecx, 1
+		add [esp], ecx
 		mov ch, '-'
 		mov [edi], ch
 		inc edi
@@ -115,7 +117,6 @@ not_negative:
 		xor ecx, ecx
 second_loop:
 		; (64-bit)buffer /= 10
-		mov ebx, 10
 		xor edx, edx
 
 		mov eax, [esi + 12]
@@ -138,6 +139,12 @@ second_loop:
 		push edx
 		inc ecx
 
+		mov edx, [esi + 12]		
+		cmp edx, 0
+		jne second_loop
+		mov edx, [esi + 8]
+		cmp edx, 0
+		jne second_loop
 		mov edx, [esi + 4]		
 		cmp edx, 0
 		jne second_loop
@@ -147,7 +154,7 @@ second_loop:
 
 print_out:
 		pop edx
-		mov [edi], edx
+		mov [edi], dl
 		inc edi
 		dec ecx
 		cmp ecx, 0
