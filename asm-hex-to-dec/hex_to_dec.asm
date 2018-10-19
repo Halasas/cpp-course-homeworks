@@ -109,6 +109,10 @@ minus_applied:
 		not dword[esp]
 		mov ecx, 1
 		add [esp], ecx
+		mov ecx, 0
+		adc [esp + 4],   ecx
+		adc [esp + 8],   ecx
+		adc [esp + 12],  ecx
 		mov ch, '-'
 		mov [edi], ch
 		inc edi
