@@ -13,7 +13,7 @@ void optimized_vector::check_unique() {
 optimized_vector::optimized_vector() {
 	size_ = 0;
 }
-optimized_vector::optimized_vector(size_t size, uint32_t x) {
+optimized_vector::optimized_vector(ptrdiff_t size, uint32_t x) {
 	if (size > SMALL_SIZE)
 	{
 		big = std::make_shared<std::vector<uint32_t>>();
@@ -21,7 +21,7 @@ optimized_vector::optimized_vector(size_t size, uint32_t x) {
 	}
 	else
 	{
-		for (size_t i = 0; i < size; ++i)
+		for (ptrdiff_t i = 0; i < size; ++i)
 			small[i] = x;
 	}
 	size_ = size;
@@ -29,7 +29,7 @@ optimized_vector::optimized_vector(size_t size, uint32_t x) {
 optimized_vector::~optimized_vector() {
 	big.reset();
 }
-size_t optimized_vector::size() const {
+ptrdiff_t optimized_vector::size() const {
 	return size_;
 }
 bool optimized_vector::empty() const {
@@ -39,10 +39,10 @@ void optimized_vector::clear() {
 	big.reset();
 	size_ = 0;
 }
-void optimized_vector::resize(size_t new_size) {
+void optimized_vector::resize(ptrdiff_t new_size) {
 	if (!is_small()) {
 		if (new_size <= SMALL_SIZE) {
-			for (size_t i = 0; i < new_size; ++i)
+			for (ptrdiff_t i = 0; i < new_size; ++i)
 				small[i] = operator[](i);
 			big.reset();
 		}
@@ -54,7 +54,7 @@ void optimized_vector::resize(size_t new_size) {
 	else if (new_size > SMALL_SIZE) {
 		big = std::make_shared<std::vector<uint32_t>>();
 		big->resize(new_size);
-		for (size_t i = 0; i < SMALL_SIZE; ++i) {
+		for (ptrdiff_t i = 0; i < SMALL_SIZE; ++i) {
 			big->operator[](i) = small[i];
 		}
 	}
@@ -85,13 +85,13 @@ void optimized_vector::push_back(uint32_t x) {
 void optimized_vector::pop_back() {
 	resize(size_ - 1);
 }
-uint32_t optimized_vector::operator[](size_t ind) const {
+uint32_t optimized_vector::operator[](ptrdiff_t ind) const {
 	if (is_small())
 		return small[ind];
 	else
 		return big->operator[](ind);
 }
-uint32_t & optimized_vector::operator[](size_t ind) {
+uint32_t & optimized_vector::operator[](ptrdiff_t ind) {
 	if (is_small())
 		return small[ind];
 	else {
@@ -105,7 +105,7 @@ optimized_vector & optimized_vector::operator=(optimized_vector const & other) {
 	if (!other.is_small())
 		big = std::shared_ptr<std::vector<uint32_t>>(other.big);
 	else
-		for (size_t i = 0; i < other.size(); ++i)
+		for (ptrdiff_t i = 0; i < other.size(); ++i)
 			small[i] = other.small[i];
 	size_ = other.size();
 	return *this;
@@ -115,7 +115,7 @@ bool optimized_vector::equal(optimized_vector const & b) const {
 		return false;
 	}
 	else if (is_small()) {
-		for (size_t i = 0; i < size(); ++i) {
+		for (ptrdiff_t i = 0; i < size(); ++i) {
 			if (small[i] != b.small[i])
 				return false;
 		}

@@ -4,7 +4,7 @@
 #include <cstdlib>
 #include <vector>
 #include <utility>
-#include "gtest\gtest.h"
+#include <gtest/gtest.h>
 
 #include "big_integer.h"
 
@@ -672,18 +672,6 @@ namespace
         T b = extract_random_element(v);
 
         T ab = a * b;
-		if (ab / a != b)
-		{
-			std::cout << to_string(a) << std::endl << std::endl << to_string(b) << std::endl << std::endl;
-			std::cout << to_string(ab) << std::endl << std::endl << to_string(ab / a) << std::endl;
-			system("PAUSE");
-		}
-		if (ab / b != a)
-		{
-			std::cout << to_string(a) << std::endl << std::endl << to_string(b) << std::endl << std::endl;
-			std::cout << to_string(ab) << std::endl << std::endl << to_string(ab / b) << std::endl;
-			system("PAUSE");
-		}
         ASSERT_TRUE(ab / a == b);
         ASSERT_TRUE(ab / b == a);
 

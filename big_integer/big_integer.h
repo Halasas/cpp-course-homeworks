@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 #include <algorithm>
-#include "optimized_vector.h"
+#include <optimized_vector.h>
 
 enum ops { AND, OR, XOR };
 
