@@ -3,3 +3,14 @@
 /asm-hex-to-dec/Makefile
 /asm-hex-to-dec/cmake_install.cmake
 /asm-hex-to-dec/CMakeFiles/
+/big_integer/x64/Release
+/big_integer/Release
+/big_integer/Debug
+/big_integer/.vs/big_integer/v15
+/big_integer/targetver.h
+/big_integer/stdafx.h
+/big_integer/stdafx.cpp
+/big_integer/big_integer.vcxproj.user
+/big_integer/big_integer.vcxproj.filters
+/big_integer/big_integer.vcxproj
+/big_integer/big_integer.sln
