@@ -1,4 +1,4 @@
-#include <big_integer.h>
+#include "big_integer.h"
 
 bool big_integer::is_zero() {
 	cut_zeros();
@@ -29,7 +29,7 @@ big_integer::big_integer(uint64_t a) {
 	sign = '+';
 }
 big_integer::big_integer(std::string const & str) {
-	data = optimized_vector(1, 0);
+	data = std::vector<uint32_t>(1, 0);
 	char s = '+';
 	sign = '+';
 	size_t i = 0;

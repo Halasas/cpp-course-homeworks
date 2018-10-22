@@ -4,14 +4,14 @@
 #include <sstream>
 #include <string>
 #include <algorithm>
-#include <optimized_vector.h>
+#include "optimized_vector.h"
 
 enum ops { AND, OR, XOR };
 
 struct big_integer
 {
 private:
-	optimized_vector data;
+	std::vector<uint32_t> data;
 	char sign;
 	bool is_zero();
 	void cut_zeros();

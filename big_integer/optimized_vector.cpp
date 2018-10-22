@@ -33,6 +33,7 @@ ptrdiff_t optimized_vector::size() const {
 	return size_;
 }
 bool optimized_vector::empty() const {
+
 	return size() == 0;
 }
 void optimized_vector::clear() {
