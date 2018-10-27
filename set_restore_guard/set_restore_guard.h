@@ -8,6 +8,8 @@ struct set_restore_guard
 {
 	set_restore_guard() : is_stores(false) {};
 	
+	set_restore_guard(set_restore_guard const& other) = delete;
+
 	set_restore_guard(T& var, T const new_val) :
 		is_stores(true),
 		var_ptr(&var) 
