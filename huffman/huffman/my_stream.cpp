@@ -5,15 +5,23 @@ my_stream::my_stream(string input, string output)
 	out.open(output, ios::binary);
 	in.open(input, ios::binary);
 
-	if (!out.is_open())
+	if (!out.is_open()) {
+		this->close();
 		throw FileNotOpenedException(output);
-	if (!in.is_open())
+	}
+	if (!in.is_open()) {
+		this->close();
 		throw FileNotOpenedException(input);
-
+	}
 	this->input = input;
 	this->output = output;
 }
-my_stream::~my_stream() { if (in.is_open()) in.close(); if (out.is_open()) out.close(); }
+my_stream::~my_stream() {
+	if (in.is_open())
+		in.close(); 
+	if (out.is_open()) 
+		out.close(); 
+}
 
 int my_stream::read_bytes(string & str, size_t count_bit)
 {
@@ -37,6 +45,7 @@ int my_stream::read_bytes(string & str, size_t count_bit)
 	}
 	return cnt;
 }
+
 int my_stream::read_string(string & str, size_t size)
 {
 	str.clear();

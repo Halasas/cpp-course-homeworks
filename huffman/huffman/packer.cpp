@@ -4,8 +4,9 @@ using namespace std;
 
 void packer::pack(string in, string out)
 {
+	try {
 	my_stream stream(in, out);
-
+	
 	bool flag = false;
 	vector<int> alp(256, 0);
 	while (!stream.in_eof()) 
@@ -72,14 +73,17 @@ void packer::pack(string in, string out)
 	}
 	stream.write_bytes(buf_out, buf_out.size()), buf_out.resize(0);
 	stream.close();
+	}
+	catch (FileNotOpenedException e) {
+		cout << e.error();
+		return;
+	}
 }
 
 
-
-
-
 void packer::unpack(string in, string out) {
-	my_stream stream(in, out);
+	try {
+		my_stream stream(in, out);
 
 	uint32_t num_of_bit;
 	uint32_t num_of_symbols;
@@ -106,7 +110,12 @@ void packer::unpack(string in, string out) {
 	while (num_of_bit > counter) {
 		string in_buf;
 		stream.read_bytes(in_buf, 4096);
-	
+
+		if (in_buf.size() == 0)
+		{
+			throw FileIsDamagedException(in);
+		}
+
 		for (char c : in_buf) {
 			if (num_of_bit <= counter)
 				break;
@@ -117,7 +126,6 @@ void packer::unpack(string in, string out) {
 				cur = cur->right_son;
 			else
 				throw FileIsDamagedException(in);
-			
 			if (cur->is_leaf) {
 				buf_out.push_back(cur->symbol);
 				cur = root;
@@ -130,4 +138,14 @@ void packer::unpack(string in, string out) {
 	}
 	stream.write_string(buf_out, buf_out.size()), buf_out.resize(0);
 	stream.close();
+
+	}
+	catch (FileNotOpenedException e) {
+		cout << e.error();
+		return;
+	}
+	catch (FileIsDamagedException e) {
+		cout << e.error();
+		return;
+	}
 }
