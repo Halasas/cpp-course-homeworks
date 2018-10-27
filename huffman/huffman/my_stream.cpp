@@ -43,6 +43,7 @@ int my_stream::read_bytes(string & str, size_t count_bit)
 			str.push_back(tmp + '0');
 		}
 	}
+	delete[] buf;
 	return cnt;
 }
 
@@ -55,6 +56,7 @@ int my_stream::read_string(string & str, size_t size)
 	for (uint32_t i = 0; i < cnt; ++i) {
 		str.push_back(buf[i]); 
 	}
+	delete[] buf;
 	return cnt;
 }
 bool my_stream::read_uint32_t(uint32_t & x)
@@ -67,6 +69,7 @@ bool my_stream::read_uint32_t(uint32_t & x)
 		x <<= sizeof(char) * 8;
 		x += (unsigned char)buf[i];
 	}
+	delete[] buf;
 	return true;
 }
 
@@ -86,6 +89,7 @@ void my_stream::write_bytes(string const & str, size_t count_bit)
 		}
 	}
 	out.write(buf, size);
+	delete[] buf;
 }
 void my_stream::write_string(string const & str, size_t size)
 {
@@ -94,6 +98,7 @@ void my_stream::write_string(string const & str, size_t size)
 		buf[i] = str[i];
 	}
 	out.write(buf, size);
+	delete[] buf;
 }
 void my_stream::write_uint32_t(uint32_t const & x)
 {
@@ -107,5 +112,6 @@ void my_stream::write_uint32_t(uint32_t const & x)
 		buf[ind++] = c;
 	}
 	out.write(buf, sizeof(uint32_t));
+	delete[] buf;
 }
 
