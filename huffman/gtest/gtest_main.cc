@@ -1,4 +1,4 @@
-#pragma warning(disable : 4996)// Copyright 2006, Google Inc.
+// Copyright 2006, Google Inc.
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
