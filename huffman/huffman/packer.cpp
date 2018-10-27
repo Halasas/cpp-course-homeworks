@@ -26,7 +26,6 @@ void packer::pack(string in, string out)
 	vector<string> codes = huff.get_codes();
 	
 	uint32_t bit_counter = 0;
-	uint32_t symb_counter = 0;
 
 	for (size_t i = 0; i < 256; i++)
 		bit_counter += (uint32_t)codes[i].size() * alp[i];

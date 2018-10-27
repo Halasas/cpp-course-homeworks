@@ -10,6 +10,6 @@ namespace packer
 {
 	void pack(string in, string out);
 	void unpack(string in, string out);
-};
+}
 
 #endif //PACKER_H

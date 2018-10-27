@@ -34,7 +34,7 @@ int my_stream::read_bytes(string & str, size_t count_bit)
 		{
 			int tmp = 1;
 			tmp <<= (7 - j);
-			if (count_bit > (int)i * 8 + j)
+			if (count_bit > i * 8 + j)
 				tmp &= buf[i];
 			else
 				break;
@@ -74,12 +74,12 @@ void my_stream::write_bytes(string const & str, size_t count_bit)
 {
 	size_t size = (count_bit + 7) / 8;
 	char* buf = new char[size];
-	for (uint32_t i = 0; (int)i < size; ++i) {
+	for (size_t i = 0; i < size; ++i) {
 		buf[i] = 0;
 		for (int j = 0; j < 8; ++j)
 		{
 			int tmp = 0;
-			if (count_bit > (int)i * 8 + j)
+			if (count_bit > i * 8 + j)
 				tmp = (str[i * 8 + j] == '1') ? 1 : 0;
 			tmp <<= (7 - j);
 			buf[i] |= tmp;
@@ -90,7 +90,7 @@ void my_stream::write_bytes(string const & str, size_t count_bit)
 void my_stream::write_string(string const & str, size_t size)
 {
 	char* buf = new char[size];
-	for (uint32_t i = 0; (int)i < size; ++i) {
+	for (size_t i = 0; i < size; ++i) {
 		buf[i] = str[i];
 	}
 	out.write(buf, size);

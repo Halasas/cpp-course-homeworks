@@ -1,6 +1,6 @@
 #include "huffman_tree.h"
 
-huffman_tree::huffman_tree() : tree(nullptr) { codes.resize(256); };
+huffman_tree::huffman_tree() : tree(nullptr) { codes.resize(256); }
 
 huffman_tree::huffman_tree(vector<int>& alp)
 {
