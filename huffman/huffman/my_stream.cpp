@@ -2,17 +2,19 @@
 
 my_stream::my_stream(string input, string output)
 {
-	out.open(output, ios::binary);
 	in.open(input, ios::binary);
+    out.open(output, ios::binary);
+
+	if (!in.is_open()) {
+		this->close();
+		throw FileNotOpenedException(input);
+	}
 
 	if (!out.is_open()) {
 		this->close();
 		throw FileNotOpenedException(output);
 	}
-	if (!in.is_open()) {
-		this->close();
-		throw FileNotOpenedException(input);
-	}
+
 	this->input = input;
 	this->output = output;
 }
@@ -52,6 +54,7 @@ int my_stream::read_string(string & str, size_t size)
 	str.clear();
 	char* buf = new char[size];
 	in.read(buf, size);
+
 	uint32_t cnt = (uint32_t)in.gcount();
 	for (uint32_t i = 0; i < cnt; ++i) {
 		str.push_back(buf[i]); 

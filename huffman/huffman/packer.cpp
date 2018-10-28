@@ -44,8 +44,9 @@ void packer::pack(string in, string out)
 	while (!stream.in_eof()) 
 	{
 		string buf_in;
-		stream.read_string(buf_in, 4096);
-		
+		if(stream.read_string(buf_in, 4096) <= 0)
+			break;
+
 		uint32_t buf_index = 0;
 		uint32_t code_index = 0;
 		while(true) 

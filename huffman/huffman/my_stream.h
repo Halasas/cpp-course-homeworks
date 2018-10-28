@@ -55,7 +55,7 @@ public:
 		in.seekg(0, std::ios_base::beg); 
 	};
 	
-	int tellg() { return (int)in.tellg(); };
+	int gcount() { return (int)in.gcount(); };
 //read
 	int read_bytes(string &str, size_t size);
 	int read_string(string &str, size_t size);

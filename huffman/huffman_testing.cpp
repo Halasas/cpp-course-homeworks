@@ -1,4 +1,4 @@
-#include<algorithm>
+ #include<algorithm>
 #include <cassert>
 #include <cstdlib>
 #include <vector>
@@ -94,6 +94,7 @@ namespace {
 	}
 }
 
+
 TEST(correctness, hello_world)
 {
     std::string str = "hello world";
@@ -140,4 +141,12 @@ TEST(correctness, jpg1) {
 
 TEST(correctness, Ready_Player_One) {
 	EXPECT_TRUE(equal("Ready Player One.txt", "Ready Player One out.txt"));
+}
+
+
+TEST(correctness, 10m_dd) {
+	EXPECT_TRUE(equal("10m", "out"));
+}/**/
+TEST(correctness, 10m_truncate) {
+	EXPECT_TRUE(equal("10m_truncate", "out"));
 }
