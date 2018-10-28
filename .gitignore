@@ -25,6 +25,14 @@
 /huffman/huffman.vcxproj.user
 /huffman/huffman.vcxproj.filters
 /huffman/huffman.vcxproj
+
+/huffman/CMakeFiles
+/huffman/CMakeCache.txt
+/huffman/Makefile
+/huffman/cmake_install.cmake
+/huffman/huffman_testing
+
+
 /set_restore_guard/.vs/set_restore_guard/v15
 /set_restore_guard/Debug
 /set_restore_guard/targetver.h
