@@ -26,6 +26,10 @@ struct Node
 		is_leaf(true) 
 	{};
 
+	~Node() {
+		
+	}
+
 	Node(char symbol, uint32_t weight) :
 		left_son(nullptr), 
 		right_son(nullptr), 

@@ -145,8 +145,14 @@ TEST(correctness, Ready_Player_One) {
 
 
 TEST(correctness, 10m_dd) {
-	EXPECT_TRUE(equal("10m", "out"));
-}/**/
+	EXPECT_TRUE(equal("10m_dd", "out"));
+}
+
 TEST(correctness, 10m_truncate) {
 	EXPECT_TRUE(equal("10m_truncate", "out"));
 }
+/*
+TEST(correctness, 300m_dd) {
+	EXPECT_TRUE(equal("300m_dd", "out"));
+}
+*/
